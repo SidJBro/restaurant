@@ -8,29 +8,39 @@ import { createFooter } from './createFooter.js';
     var page = {
         init: function() {
             this.buildDivs();
-
-            this.render(this.main);
+            this.buttons = this.header.buttons;
             this.attachEvents();
+            this.render();
         },
         buildDivs: function() {
             this.contentContainer = document.querySelector('.content');
             this.header = createHeader();
-            this.main = createMain('Home');
+            this.main = createMain();
             this.footer = createFooter();
         },
         attachEvents: function() {
-            this.header.buttons.forEach(button => {
-                button.addEventListener('click', e => {
-                    let newMain = createMain(e.target.innerText);
-                    // this.main.innerHTML = newMain.innerHTML;
-                    this.contentContainer.replaceChild(newMain, this.main);
-                });
+            this.buttons[0].addEventListener('click', e => {
+                this.main.homePage.style.display = 'flex';
+                this.main.menu.style.display = 'none';
+                this.main.contact.style.display = 'none';
+            });
+            this.buttons[1].addEventListener('click', e => {
+                this.main.homePage.style.display = 'none';
+                this.main.menu.style.display = 'flex';
+                this.main.contact.style.display = 'none';
+            });
+            this.buttons[2].addEventListener('click', e => {
+                this.main.homePage.style.display = 'none';
+                this.main.menu.style.display = 'none';
+                this.main.contact.style.display = 'flex';
             });
         },
-        render: function(mainContainer) {
-            [this.header.container, mainContainer, this.footer].forEach(div => {
-                this.contentContainer.appendChild(div);
-            });
+        render: function() {
+            this.contentContainer.appendChild(this.header.container);
+            this.contentContainer.appendChild(this.main.homePage);
+            this.contentContainer.appendChild(this.main.menu);
+            this.contentContainer.appendChild(this.main.contact);
+            this.contentContainer.appendChild(this.footer);
         }
     }
     page.init();
