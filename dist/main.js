@@ -1,0 +1,1 @@
+(()=>{console.log("hello");const e=document.querySelector(".content");for(let o=0;o<3;o++)e.appendChild(document.createElement("div"))})();
